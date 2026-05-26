@@ -1947,8 +1947,8 @@
 ============================================================ */
 
 .section-light {
-  background: var(--white);
-  color: var(--near-black);
+  background: var(--light-grey);
+  color: var(--black);
 }
 
 .section-light .eyebrow-dark,
