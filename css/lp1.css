@@ -60,14 +60,16 @@
 }
 
 .nav-logo img {
-  height: 44px;
+  height: 80px;
   width: auto;
   display: block;
+  margin: -16px 0; /* offset SVG inner whitespace so nav row stays tight */
 }
 
 @media (max-width: 640px) {
   .nav-logo img {
-    height: 36px;
+    height: 64px;
+    margin: -14px 0;
   }
 }
 
@@ -690,6 +692,11 @@
   grid-template-columns: 1fr 1.2fr;
   gap: var(--space-16);
   align-items: center;
+  justify-items: center;
+}
+
+.austin-grid > div:last-child {
+  justify-self: stretch;
 }
 
 .austin-photo {
@@ -698,12 +705,15 @@
   aspect-ratio: 4 / 5;
   background: var(--mint-300);
   box-shadow: var(--shadow-lg);
+  width: 100%;
+  max-width: 420px;
 }
 
 .austin-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .austin-creds {
@@ -895,46 +905,155 @@
 .schedule-caption {
   font-style: italic;
   color: var(--white-80);
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-10);
   font-size: var(--text-lg);
 }
 
 .schedule-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: var(--space-2);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
 }
 
 .schedule-day {
-  background: var(--mint-300);
+  background: var(--mint-400);
+  border: 1px solid var(--white-15);
+  border-radius: var(--radius-md);
   padding: var(--space-4);
-  min-height: 220px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
 }
 
 .schedule-day-head {
   font-family: var(--font-secondary);
   font-weight: var(--weight-black);
-  color: var(--orange-100);
+  color: var(--white);
   font-size: var(--text-sm);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  margin-bottom: var(--space-3);
+  margin: 0 0 var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--white-15);
 }
 
 .schedule-block {
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--mint-500);
+  border-left: 3px solid var(--white-15);
+  margin-top: auto;
+}
+
+.schedule-block-title {
+  font-family: var(--font-secondary);
+  font-weight: var(--weight-bold);
+  font-size: var(--text-sm);
+  color: var(--white);
+  line-height: 1.25;
+  margin: 0 0 var(--space-1);
+}
+
+.schedule-block-time {
   font-size: var(--text-xs);
   color: var(--white-80);
-  padding: var(--space-2);
-  margin-bottom: var(--space-2);
-  background: var(--mint-500);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.schedule-block-tag {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: var(--weight-bold);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--white);
+}
+
+.schedule-block-fuchsia {
+  border-left-color: var(--fuchsia-100);
+}
+
+.schedule-block-orange {
+  border-left-color: var(--orange-100);
+}
+
+.schedule-block-kiwi {
+  border-left-color: var(--kiwi-100);
+}
+
+.schedule-block-kiwi .schedule-block-tag {
+  background: var(--kiwi-100);
+  color: var(--black);
+}
+
+.schedule-block-mint {
+  border-left-color: var(--mint-100);
+}
+
+.schedule-strips {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-6);
+}
+
+.schedule-strip {
+  background: var(--mint-400);
+  border: 1px solid var(--white-15);
+  border-left: 3px solid var(--mint-100);
   border-radius: var(--radius-sm);
+  padding: var(--space-4) var(--space-5);
+  color: var(--white-80);
+  font-size: var(--text-base);
+  line-height: 1.4;
+}
+
+.schedule-disclaimer {
+  font-size: var(--text-xs);
+  color: var(--white-60);
+  font-style: italic;
+  margin-top: var(--space-4);
 }
 
 @media (max-width: 900px) {
   .schedule-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-2);
+  }
+  .schedule-day {
+    min-height: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .schedule-grid {
+    grid-template-columns: 1fr;
+  }
+  .schedule-day {
+    min-height: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+  }
+  .schedule-day-head {
+    margin: 0;
+    padding: 0;
+    border-bottom: none;
+    border-right: 1px solid var(--white-15);
+    padding-right: var(--space-4);
+    min-width: 56px;
+  }
+  .schedule-block {
+    margin-top: 0;
+    flex: 1;
   }
 }
 
@@ -1949,6 +2068,10 @@
 
 /* ============================================================
    PHOTO + GLYPH FALLBACK PATTERN
+   Glyphs are HIDDEN by default. Only shown when parent gets
+   `.no-photo` (set by `onerror` when the image fails to load).
+   This prevents the giant-circle bug where the glyph sits
+   behind the photo and bleeds through.
 ============================================================ */
 
 .placement-photo,
@@ -1963,14 +2086,7 @@
 .coach-glyph,
 .example-glyph,
 .austin-glyph {
-  position: absolute;
-  inset: 0;
-  width: 50%;
-  height: 50%;
-  margin: auto;
-  opacity: 0.35;
-  z-index: 0;
-  pointer-events: none;
+  display: none;
 }
 
 .placement-photo > img:not(.placement-glyph),
@@ -1985,8 +2101,16 @@
 .placement-photo.no-photo .placement-glyph,
 .coach-photo.no-photo .coach-glyph,
 .example-photo.no-photo .example-glyph,
-.austin-photo.no-photo .austin-glyph {
-  opacity: 0.55;
+.austin-photo.no-photo .austin-glyph,
+.advisor-photo.no-photo .coach-glyph {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 38%;
+  height: 38%;
+  margin: auto;
+  opacity: 0.5;
+  pointer-events: none;
 }
 
 /* ============================================================
@@ -2070,38 +2194,9 @@
   object-fit: cover;
 }
 
-/* ============================================================
-   AUSTIN PHOTO — glyph fallback
-============================================================ */
-
-.austin-photo {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--mint-300);
-}
-
-.austin-photo > img:not(.austin-glyph) {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.austin-glyph {
-  width: 40%;
-  height: 40%;
-}
-
-/* ============================================================
-   COACH PHOTO — glyph fallback
-============================================================ */
-
-.coach-photo {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* Austin + coach photo containers keep their primary rules
+   defined earlier; the glyph fallback pattern at the top of
+   this file handles the no-photo state. */
 
 /* ============================================================
    FOOTER LOGO — bigger
@@ -2113,10 +2208,12 @@
 }
 
 .footer-logo img {
-  height: 36px;
+  height: 72px;
   width: auto;
   opacity: 0.8;
   transition: opacity 0.2s ease;
+  margin: -14px 0;
+  display: block;
 }
 
 .footer-logo:hover img {
