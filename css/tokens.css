@@ -17,6 +17,7 @@
   --fuchsia-100: #f956f2;
   --kiwi-100: #c1f553;
   --kiwi-alt: #9fc30e;
+  --orange-100: #ff6b3d;
 
   /* Neutrals */
   --white: #ffffff;
@@ -25,9 +26,10 @@
   --white-60: rgba(255, 255, 255, 0.6);
   --white-15: rgba(255, 255, 255, 0.15);
   --black: #000000;
+  --near-black: #0a0a0a;
 
   /* Backgrounds — used per-variant overrides in main stylesheets */
-  --bg-primary: var(--mint-500);
+  --bg-primary: var(--near-black);
   --bg-secondary: var(--mint-400);
 
   /* Typography */
