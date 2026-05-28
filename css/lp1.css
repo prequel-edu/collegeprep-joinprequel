@@ -129,9 +129,10 @@ textarea:focus-visible {
   color: var(--kiwi-100);
 }
 
+.nav-links a.nav-cta,
 .nav-cta {
   background: var(--kiwi-100);
-  color: var(--black);
+  color: var(--mint-500) !important;
   padding: var(--space-2) var(--space-6);
   border-radius: var(--radius-pill);
   font-weight: var(--weight-bold);
@@ -471,29 +472,32 @@ textarea:focus-visible {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: var(--space-8) var(--space-12);
-  max-width: 64rem;
+  gap: var(--space-6) var(--space-10);
+  max-width: 72rem;
   margin: 0 auto;
 }
 
 .crest-logos img {
-  height: 48px;
+  height: 64px;
   width: auto;
-  opacity: 0.85;
+  max-width: 160px;
+  object-fit: contain;
+  opacity: 1;
   filter: brightness(0) invert(1);
-  transition: opacity 200ms ease;
+  transition: opacity 200ms ease, transform 200ms ease;
 }
 
 .crest-logos img:hover {
-  opacity: 1;
+  transform: scale(1.05);
 }
 
 @media (max-width: 640px) {
   .crest-logos {
-    gap: var(--space-6) var(--space-8);
+    gap: var(--space-4) var(--space-6);
   }
   .crest-logos img {
-    height: 36px;
+    height: 44px;
+    max-width: 110px;
   }
 }
 
@@ -1059,10 +1063,16 @@ textarea:focus-visible {
   border: 1px solid var(--white-15);
   border-left: 3px solid var(--mint-100);
   border-radius: var(--radius-sm);
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-6) var(--space-8);
   color: var(--white-80);
   font-size: var(--text-base);
-  line-height: 1.4;
+  line-height: 1.5;
+}
+
+@media (max-width: 640px) {
+  .schedule-strip {
+    padding: var(--space-6) var(--space-6);
+  }
 }
 
 .schedule-disclaimer {
