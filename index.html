@@ -95,7 +95,7 @@
             <li>Includes 1:1 college advising with a Rhodes Scholar</li>
           </ul>
           <div id="hubspot-form-hero" class="hero-form-embed">
-            <p class="hero-form-loading">Loading form. If it doesn't appear, email <a href="mailto:hello@joinprequel.com">hello@joinprequel.com</a>.</p>
+            <p class="hero-form-loading" style="color: rgba(0, 0, 0, 0.6);">Loading form. If it doesn't appear, email <a href="mailto:hello@joinprequel.com" style="color: var(--mint-200); font-weight: 700;">hello@joinprequel.com</a>.</p>
           </div>
         </aside>
       </div>
@@ -876,12 +876,12 @@
       <div class="form-card">
         <!-- HUBSPOT FORM EMBED — form GUID 84e5a3e7-c2bd-4bb2-9ef5-f264d050904f -->
         <div id="hubspot-form-container">
-          <p style="color: var(--white-60); text-align: center; padding: var(--space-12) 0;">Sign-up form loading. If it doesn't appear, email <a href="mailto:hello@joinprequel.com" style="color: var(--kiwi-100);">hello@joinprequel.com</a>.</p>
+          <p style="color: rgba(0, 0, 0, 0.6); text-align: center; padding: var(--space-12) 0;">Sign-up form loading. If it doesn't appear, email <a href="mailto:hello@joinprequel.com" style="color: var(--mint-200); font-weight: 700;">hello@joinprequel.com</a>.</p>
         </div>
         <script charset="utf-8" type="text/javascript" src="//js.hsforms.net/forms/embed/v2.js"></script>
         <script>
           function createPrequelHubspotForm(targetSelector) {
-            if (!window.hbspt || !document.querySelector(targetSelector)) return;
+            if (!document.querySelector(targetSelector)) return;
             hbspt.forms.create({
               region: "na1",
               portalId: "24318280",
@@ -904,9 +904,20 @@
               }
             });
           }
-          // Mount in hero (above the fold) and final CTA. Both targets are independent.
-          createPrequelHubspotForm("#hubspot-form-hero");
-          createPrequelHubspotForm("#hubspot-form-container");
+          // Poll for hbspt (loads async via embed/v2.js), then mount both forms.
+          (function whenHbsptReady() {
+            var attempts = 0;
+            var interval = setInterval(function () {
+              if (window.hbspt && window.hbspt.forms) {
+                clearInterval(interval);
+                createPrequelHubspotForm("#hubspot-form-hero");
+                createPrequelHubspotForm("#hubspot-form-container");
+              } else if (++attempts > 100) {
+                clearInterval(interval);
+                console.warn("HubSpot embed (hbspt) did not load after 10s.");
+              }
+            }, 100);
+          })();
         </script>
       </div>
     </div>
